@@ -9,16 +9,18 @@ public class Books {
       Scanner sc = new Scanner(System.in);
       String response;
       
-      do{
+      while(true){
       
-      System.out.println("\n--------------------------");
-      System.out.println("BOOOKS PANEL               |");
-      System.out.println("1. ADD BOOK                |");
-      System.out.println("2. VIEW BOOK               |");
-      System.out.println("3. UPDATE BOOK             |");
-      System.out.println("4. DELETE BOOK             |");
-      System.out.println("5. EXIT                    |");
-      System.out.println("\n--------------------------");
+      System.out.println("============================");
+      System.out.println("       BOOOKS PANEL        ║");
+      System.out.println("============================");
+      System.out.println("                           ║");
+      System.out.println("1. ADD BOOK                ║");
+      System.out.println("2. VIEW BOOK               ║");
+      System.out.println("3. UPDATE BOOK             ║");
+      System.out.println("4. DELETE BOOK             ║");
+      System.out.println("5. BACK                    ║");
+      System.out.println("============================");
       
       System.out.print("Enter Selection: ");
       int action= sc.nextInt();
@@ -55,17 +57,14 @@ public class Books {
               
               break;
           
-          case 5:
-              
-              break;
-              
-
+         case 5:
+                    System.out.println("Returning to Main Menu...");
+                    return; 
+                default:
+                    System.out.println("Invalid selection. Try again.");
+            }
+        }
       }
-      System.out.print("Do you want to continue?(yes/no): ");
-      response = sc.next();
-      
-  }   while(response.equalsIgnoreCase("yes"));
-}
    public void addBook() {
     Scanner sc = new Scanner(System.in);
      config conf = new config();
@@ -134,7 +133,9 @@ public class Books {
               System.out.print("Selected ID doesn't exist");
               System.out.print("Select Book ID Again: ");
               id = sc.nextInt();
+              sc.nextLine();
         }
+        
         String b_publisher;
         do {
             System.out.print("Book Publisher: ");
@@ -195,7 +196,7 @@ public class Books {
             
         while(conf.getSingleValue("SELECT b_id FROM BookInfo WHERE b_id=?  ",id)==0){
               System.out.print("Selected ID doesn't exist");
-              System.out.print("Select Book ID Again: ");
+              System.out.print("\nSelect Book ID Again: ");
               id=sc.nextInt();
         }
         sc.nextLine();
@@ -279,7 +280,7 @@ public class Books {
         
         while(conf.getSingleValue("SELECT b_id FROM BookInfo WHERE b_id=?  ",id)==0){
               System.out.println("Selected ID doesn't exist");
-              System.out.print("Select Book ID Again: ");
+              System.out.print("\nSelect Book ID Again: ");
               id=sc.nextInt();
         }
          

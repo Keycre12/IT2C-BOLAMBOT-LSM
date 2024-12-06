@@ -7,17 +7,19 @@ import java.util.Scanner;
 public class Category {  
   public void bCateg(){
       Scanner sc = new Scanner(System.in);
-      String response;
       
-      do {
-        System.out.println("\n---------------------------");
-        System.out.println("CATEGORY PANEL             |");
-        System.out.println("1. ADD CATEGORY            |");
-        System.out.println("2. VIEW CATEGORIES         |");
-        System.out.println("3. UPDATE CATEGORY         |");
-        System.out.println("4. DELETE CATEGORY         |");
-        System.out.println("5. EXIT                    |");
-        System.out.println("---------------------------");
+     while (true) {
+        System.out.println("============================");
+        System.out.println("       CATEGORY PANEL      ║");
+        System.out.println("============================");
+        System.out.println("                           ║");
+        System.out.println("1. ADD CATEGORY            ║");
+        System.out.println("2. VIEW CATEGORIES         ║");
+        System.out.println("3. UPDATE CATEGORY         ║");
+        System.out.println("4. DELETE CATEGORY         ║");
+        System.out.println("5. BACK                    ║");
+        System.out.println("                           ║");
+        System.out.println("============================");
       
       System.out.print("Enter Selection: ");
       int action= sc.nextInt();
@@ -55,20 +57,17 @@ public class Category {
               break;
           
           case 5:
-              
-              break;
-              
-
+                    System.out.println("Returning to Main Menu...");
+                    return; 
+                default:
+                    System.out.println("Invalid selection. Try again.");
+            }
+        }
       }
-      System.out.print("Do you want to continue?(yes/no): ");
-      response = sc.next();
-      
-  }   while(response.equalsIgnoreCase("yes"));
-}
    public void addCategory() {
     Scanner sc = new Scanner(System.in);
 
-    System.out.print("How many category do you want to add? ");
+    System.out.print("How many category do you want to add?: ");
     while (!sc.hasNextInt()) {
         System.out.print("Please enter a valid number: ");
         sc.next();
@@ -87,9 +86,9 @@ public class Category {
 
             
             if (c_name.isEmpty()) {
-                System.out.println("Category cannot be empty.");
+                System.out.println("Category can't be empty.");
             } else if (c_name.matches(".*\\d.*")) {
-                System.out.println("Category cannot contain numbers. Please try again.");
+                System.out.println("Category can't contain numbers, Please try again: ");
                 c_name= "";
             }
         } while (c_name.isEmpty());
@@ -99,11 +98,7 @@ public class Category {
         String sql = "INSERT INTO Category (c_name) VALUES (?)";
         config conf = new config();
         conf.addRecord(sql, c_name);
-
-//        System.out.println("Category " + (i + 1) + " added successfully!");
     }
-
-    System.out.println("All category have been added.");
 }
     public void viewCategory(){
   
@@ -126,7 +121,7 @@ public class Category {
 
         while(conf.getSingleValue("SELECT c_id FROM Category WHERE c_id=?  ",id)==0){
               System.out.print("Selected ID doesn't exist");
-              System.out.print("Select Book ID Again: ");
+              System.out.print("\nSelect Category ID Again: ");
               id = sc.nextInt();
         }
         
@@ -158,7 +153,7 @@ public class Category {
         
         while(conf.getSingleValue("SELECT c_id FROM Category WHERE c_id=?  ",id)==0){
               System.out.println("Selected ID doesn't exist");
-              System.out.print("Select Category ID Again: ");
+              System.out.print("\nSelect Category ID Again: ");
               id=sc.nextInt();
         }
          

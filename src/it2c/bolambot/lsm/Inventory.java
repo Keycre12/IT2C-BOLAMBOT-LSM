@@ -11,15 +11,18 @@ public class Inventory {
         Scanner sc = new Scanner(System.in);
         String response;
         
-      do {
-            System.out.println("\n---------------------------");
-            System.out.println("INVENTORY PANEL             |");
-            System.out.println("1. ADD INVENTORY            |");
-            System.out.println("2. VIEW INVENTORY           |");
-            System.out.println("3. UPDATE INVENTORY         |");
-            System.out.println("4. DELETE INVENTORY         |");
-            System.out.println("5. EXIT                     |");
-            System.out.println("---------------------------");
+      while(true) {
+            System.out.println("============================");
+            System.out.println("      INVENTORY PANEL     ║");
+            System.out.println("============================");
+            System.out.println("                           ║");
+            System.out.println("1. ADD INVENTORY           ║");
+            System.out.println("2. VIEW INVENTORY          ║");
+            System.out.println("3. UPDATE INVENTORY        ║");
+            System.out.println("4. DELETE INVENTORY        ║");
+            System.out.println("5. BACK                    ║");
+            System.out.println("                           ║");
+            System.out.println("============================");
             
             System.out.print("Enter Selection: ");
             int action = sc.nextInt();
@@ -57,16 +60,13 @@ public class Inventory {
               break;
 
             case 5:
-              
-              break;
-              
-
+                    System.out.println("Returning to Main Menu...");
+                    return; 
+                default:
+                    System.out.println("Invalid selection. Try again.");
+            }
+        }
       }
-      System.out.print("Do you want to continue?(yes/no): ");
-      response = sc.next();
-      
-  }   while(response.equalsIgnoreCase("yes"));
-}
     private void addInventory() {
         Scanner sc = new Scanner(System.in);
         config conf = new config();
@@ -80,9 +80,25 @@ public class Inventory {
         
         while (conf.getSingleValue(sql, id) == 0) {
             System.out.println("Selected ID doesn't exist.");
-            System.out.print("Select Book ID Again: ");
+            System.out.print("\nSelect Book ID Again: ");
             id = sc.nextInt();
         }
+        
+         System.out.print("How many Transaction do you want to add? ");
+        int numberOfTrans;
+        while (true) {
+            if (sc.hasNextInt()) {
+                numberOfTrans = sc.nextInt();
+                if (numberOfTrans > 0) break;
+            }
+            System.out.print("Invalid number, try again: ");
+            sc.next();
+        }
+
+        sc.nextLine();
+
+        for (int i = 0; i < numberOfTrans; i++) {
+            System.out.println("Enter details for Transaction " + (i + 1));
         
         String t_type;
         while (true) {
@@ -119,6 +135,8 @@ public class Inventory {
         conf.addRecord(qry, id, t_type, quantity,  date);
     
 }  
+    }
+    
     public void viewInventory() {
         String qry = "SELECT i_id, b_title, t_type, quantity, date FROM Inventory " +
                      "LEFT JOIN BookInfo ON BookInfo.b_id = Inventory.b_id";
@@ -134,14 +152,14 @@ public class Inventory {
          
         Scanner sc = new Scanner(System.in);
         config conf = new config();
-        System.out.println("Enter IID TO UPDATE: ");
+        System.out.print("Enter IID TO UPDATE: ");
         int i_id = sc.nextInt();
         
         String sql = "SELECT i_id FROM Inventory WHERE i_id = ?";
         while (conf.getSingleValue(sql, i_id) == 0) {
 
               System.out.print("Selected ID doesn't exist");
-              System.out.print("Select Book ID Again: ");
+              System.out.print("\nSelect Book ID Again: ");
               i_id =sc.nextInt();
         }
   
@@ -180,7 +198,7 @@ public class Inventory {
         while (conf.getSingleValue(sql, i_id) == 0) {
 
               System.out.print("Selected ID doesn't exist");
-              System.out.print("Select Book ID Again: ");
+              System.out.print("\nSelect Book ID Again: ");
               i_id =sc.nextInt();
         }
         

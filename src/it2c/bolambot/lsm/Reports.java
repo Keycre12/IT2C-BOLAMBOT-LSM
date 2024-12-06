@@ -8,17 +8,20 @@ public class Reports {
     
     public void genReport() {
       Scanner sc = new Scanner(System.in);
-      String response;
+
       
-      do{
+      while(true){
       
-            System.out.println("\n---------------------------");
-            System.out.println("REPORTS PANEL               |");
-            System.out.println("1. VIEW ALL BOOKS           |");
-            System.out.println("2. INVENTORY SUMMARY        |");
-            System.out.println("3. VIEW BOOKS BY CATEGORY   |");
-            System.out.println("4. EXIT                     |");
-            System.out.println("---------------------------");
+            System.out.println("============================");
+            System.out.println("        REPORTS PANEL      ║");
+            System.out.println("============================");
+            System.out.println("                           ║");
+            System.out.println("1. VIEW ALL BOOKS          ║");
+            System.out.println("2. INVENTORY SUMMARY       ║");
+            System.out.println("3. VIEW BOOKS BY CATEGORY  ║");
+            System.out.println("4. BACK                    ║");
+            System.out.println("                           ║");
+            System.out.println("============================");
             
       System.out.print("Enter Selection: ");
       int action= sc.nextInt();
@@ -47,17 +50,13 @@ public class Reports {
               break;
           
           case 4:
-              
-              break;
-              
-
+                    System.out.println("Returning to Main Menu...");
+                    return; 
+                default:
+                    System.out.println("Invalid selection. Try again.");
+            }
+        }
       }
-      System.out.print("Do you want to continue?(yes/no): ");
-      response = sc.next();
-      
-  }   while(response.equalsIgnoreCase("yes"));
-}
-    
     private void viewAllBooks() {
         
         String qry = "SELECT b_id, b_isbn, b_title, b_author, c_name, b_publisher, b_publicationyr FROM BookInfo "
@@ -106,7 +105,7 @@ public void booksByCategory() {
     int bookCount = (int) conf.getSingleValue(countSql, categoryId);
 
     if (bookCount == 0) {
-        System.out.println("No books found under the selected category.");
+        System.out.println("No books found under this category.");
     } else {
 
     String qryBooks = "SELECT b.b_id, b.b_isbn, b.b_title, b.b_author, b.b_publisher, b.b_publicationyr " +

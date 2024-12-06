@@ -86,27 +86,29 @@ public class config {
     }
 
     // Helper method to print the results (to avoid code duplication)
-    private void printResults(String[] columnHeaders, String[] columnNames, ResultSet rs) throws SQLException {
-        // Print the headers
-        StringBuilder headerLine = new StringBuilder();
-        headerLine.append("----------------------------------------------------------------------------------------------------\n| ");
-        for (String header : columnHeaders) {
-            headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
-        }
-        headerLine.append("\n----------------------------------------------------------------------------------------------------");
-        System.out.println(headerLine.toString());
-
-        // Print the rows dynamically based on the provided column names
-        while (rs.next()) {
-            StringBuilder row = new StringBuilder("| ");
-            for (String colName : columnNames) {
-                String value = rs.getString(colName);
-                row.append(String.format("%-20s | ", value != null ? value : "")); // Adjust formatting
-            }
-            System.out.println(row.toString());
-        }
-        System.out.println("----------------------------------------------------------------------------------------------------");
+private void printResults(String[] columnHeaders, String[] columnNames, ResultSet rs) throws SQLException {
+    // Print the headers
+    StringBuilder headerLine = new StringBuilder();
+    headerLine.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    headerLine.append("| ");
+    for (String header : columnHeaders) {
+        headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
     }
+    headerLine.append("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+    System.out.println(headerLine.toString());
+
+    // Print the rows dynamically based on the provided column names
+    while (rs.next()) {
+        StringBuilder row = new StringBuilder("| ");
+        for (String colName : columnNames) {
+            String value = rs.getString(colName);
+            row.append(String.format("%-20s | ", value != null ? value : "")); // Adjust formatting
+        }
+        System.out.println(row.toString());
+    }
+    System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+}
+
 
 public void updateRecord(String sql, Object... values) {
         try (Connection conn = this.connectDB(); // Use the connectDB method
